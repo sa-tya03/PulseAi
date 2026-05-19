@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PulseAI — Register</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Outfit', sans-serif; min-height: 100vh; background: #050d1f; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+body::before { content: ''; position: fixed; inset: 0; background-image: linear-gradient(rgba(29,78,216,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(29,78,216,0.08) 1px, transparent 1px); background-size: 40px 40px; pointer-events: none; }
+.glow1 { position: fixed; top: -100px; left: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(29,78,216,0.25) 0%, transparent 70%); pointer-events: none; }
+.glow2 { position: fixed; bottom: -100px; right: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(59,130,246,0.2) 0%, transparent 70%); pointer-events: none; }
+.card { background: #071428; border: 1.5px solid rgba(96,165,250,0.3); border-radius: 20px; padding: 40px; width: 420px; position: relative; z-index: 1; }
+.card::before { content: ''; position: absolute; top: 0; left: 40px; right: 40px; height: 2px; background: linear-gradient(90deg, transparent, #3b82f6, #60a5fa, transparent); border-radius: 0 0 4px 4px; }
+.logo { display: flex; align-items: center; gap: 10px; margin-bottom: 26px; }
+.logo-box { width: 40px; height: 40px; background: #1d4ed8; border: 1.5px solid #3b82f6; border-radius: 11px; display: grid; place-items: center; font-family: 'Space Mono', monospace; font-weight: 700; font-size: 16px; color: #fff; }
+.logo-text { font-size: 22px; font-weight: 700; color: #fff; }
+.logo-text span { color: #60a5fa; }
+h2 { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+.subtitle { font-size: 13px; color: rgba(96,165,250,0.6); margin-bottom: 26px; font-family: 'Space Mono', monospace; }
+.form-group { margin-bottom: 16px; }
+label { display: block; font-size: 12px; font-weight: 600; color: rgba(96,165,250,0.8); margin-bottom: 7px; letter-spacing: 0.5px; }
+input { width: 100%; padding: 12px 14px; background: #0a1d3d; border: 1.5px solid rgba(96,165,250,0.25); border-radius: 10px; color: #fff; font-family: 'Outfit', sans-serif; font-size: 14px; outline: none; transition: border-color 0.2s; }
+input::placeholder { color: rgba(255,255,255,0.2); }
+input:focus { border-color: #3b82f6; }
+.strength-bar { height: 3px; border-radius: 3px; margin-top: 8px; background: rgba(255,255,255,0.08); overflow: hidden; }
+.strength-fill { height: 100%; border-radius: 3px; transition: width 0.3s, background 0.3s; width: 0%; }
+.hint { font-size: 11px; color: rgba(96,165,250,0.4); margin-top: 5px; font-family: 'Space Mono', monospace; }
+.btn { width: 100%; padding: 13px; background: #1d4ed8; border: 1.5px solid #3b82f6; border-radius: 10px; color: #fff; font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 8px; transition: background 0.2s; }
+.btn:hover { background: #2563eb; }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.error-msg { background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5; padding: 10px 14px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; display: none; }
+.success-msg { background: rgba(52,211,153,0.1); border: 1px solid rgba(52,211,153,0.3); color: #6ee7b7; padding: 10px 14px; border-radius: 8px; font-size: 13px; margin-bottom: 16px; display: none; }
+.divider { text-align: center; margin: 20px 0; position: relative; }
+.divider::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: rgba(96,165,250,0.15); }
+.divider span { background: #071428; padding: 0 12px; font-size: 12px; color: rgba(96,165,250,0.4); position: relative; font-family: 'Space Mono', monospace; }
+.switch-link { text-align: center; font-size: 13px; color: rgba(255,255,255,0.4); }
+.switch-link a { color: #60a5fa; text-decoration: none; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="glow1"></div>
+<div class="glow2"></div>
+<div class="card">
+  <div class="logo">
+    <div class="logo-box">P</div>
+    <div class="logo-text">Pulse<span>AI</span></div>
+  </div>
+  <h2>Create Account</h2>
+  <p class="subtitle">Start chatting with AI for free</p>
+  <div class="error-msg"   id="errorMsg"></div>
+  <div class="success-msg" id="successMsg"></div>
+  <div class="form-group">
+    <label>FULL NAME</label>
+    <input type="text" id="name" placeholder="Your name" />
+  </div>
+  <div class="form-group">
+    <label>EMAIL ADDRESS</label>
+    <input type="email" id="email" placeholder="you@example.com" />
+  </div>
+  <div class="form-group">
+    <label>PASSWORD</label>
+    <input type="password" id="password" placeholder="Min. 6 characters" oninput="checkStrength(this.value)" />
+    <div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div>
+    <div class="hint" id="strengthText">Enter a password</div>
+  </div>
+  <button class="btn" id="registerBtn" onclick="doRegister()">Create Account</button>
+  <div class="divider"><span>OR</span></div>
+  <div class="switch-link">Already have an account? <a href="/login">Sign in</a></div>
+</div>
+<script>
+function checkStrength(val) {
+  const fill = document.getElementById('strengthFill');
+  const text = document.getElementById('strengthText');
+  let s = 0;
+  if (val.length >= 6) s++;
+  if (val.length >= 10) s++;
+  if (/[A-Z]/.test(val)) s++;
+  if (/[0-9]/.test(val)) s++;
+  if (/[^A-Za-z0-9]/.test(val)) s++;
+  const lvls = [
+    {w:'0%',  c:'transparent', t:'Enter a password'},
+    {w:'25%', c:'#ef4444',     t:'Weak'},
+    {w:'50%', c:'#f97316',     t:'Fair'},
+    {w:'75%', c:'#eab308',     t:'Good'},
+    {w:'100%',c:'#22c55e',     t:'Strong'}
+  ];
+  const l = Math.min(s, 4);
+  fill.style.width = lvls[l].w; fill.style.background = lvls[l].c; text.textContent = lvls[l].t;
+}
+async function doRegister() {
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  const btn = document.getElementById('registerBtn');
+  document.getElementById('errorMsg').style.display = 'none';
+  document.getElementById('successMsg').style.display = 'none';
+  if (!name || !email || !password) { showError('All fields are required'); return; }
+  if (password.length < 6) { showError('Password must be at least 6 characters'); return; }
+  btn.disabled = true; btn.textContent = 'Creating account...';
+  try {
+    const res  = await fetch('/register', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({name, email, password}) });
+    const data = await res.json();
+    if (data.success) {
+      document.getElementById('successMsg').textContent = `Welcome, ${data.name}! Redirecting...`;
+      document.getElementById('successMsg').style.display = 'block';
+      setTimeout(() => window.location.href = '/chat', 1200);
+    } else { showError(data.error || 'Registration failed'); btn.disabled = false; btn.textContent = 'Create Account'; }
+  } catch(e) { showError('Network error.'); btn.disabled = false; btn.textContent = 'Create Account'; }
+}
+function showError(msg) { const el = document.getElementById('errorMsg'); el.textContent = msg; el.style.display = 'block'; }
+document.addEventListener('keydown', e => { if (e.key === 'Enter') doRegister(); });
+</script>
+</body>
+</html>

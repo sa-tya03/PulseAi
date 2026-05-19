@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PulseAI — Chat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<aside class="sidebar" id="sidebar">
+  <div class="sb-top-accent"></div>
+  <div class="sb-header">
+    <div class="logo">
+      <div class="logo-box">P</div>
+      <div class="logo-text">Pulse<span>AI</span></div>
+    </div>
+    <button class="new-btn" id="newChatBtn">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      New Chat
+    </button>
+  </div>
+  <div class="sb-label">RECENT CHATS</div>
+  <div class="sessions-list" id="sessionsList">
+    <div class="loading-sess">Loading...</div>
+  </div>
+  <div class="sb-footer">
+    <div class="user-info">
+      <div class="user-avatar">{{ user_name[0].upper() }}</div>
+      <div class="user-details">
+        <div class="user-name">{{ user_name }}</div>
+        <div class="user-email">{{ user_email }}</div>
+      </div>
+    </div>
+    <div class="footer-badges">
+      <div class="badge">
+        <span class="dot"></span> Gemini 1.5 Flash
+      </div>
+      <div class="badge">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <ellipse cx="12" cy="5" rx="9" ry="3"/>
+          <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+          <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+        </svg>
+        MySQL Connected
+      </div>
+      <a href="/logout" class="logout-btn">Sign Out</a>
+    </div>
+  </div>
+</aside>
+<main class="main">
+  <header class="topbar">
+    <button class="toggle-sb" id="toggleSb">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+    <span class="chat-title" id="chatTitle">New Conversation</span>
+    <div class="search-pill" id="searchPill" style="display:none;">
+      <span class="pulse-dot"></span> Web Search Used
+    </div>
+  </header>
+  <div class="welcome" id="welcome">
+    <div class="welcome-inner">
+      <div class="orb"></div>
+      <h1>Hello, <span>{{ user_name.split()[0] }}</span> 👋</h1>
+      <p>I'm PulseAI — powered by Gemini. Ask me anything.</p>
+      <div class="chips">
+        <button class="chip" onclick="suggest('What is the latest news in AI today?')">🔍 Latest AI News</button>
+        <button class="chip" onclick="suggest('Explain machine learning simply')">🤖 Explain ML</button>
+        <button class="chip" onclick="suggest('Write a Python bubble sort function')">💻 Python Code</button>
+        <button class="chip" onclick="suggest('What are REST API best practices?')">📡 REST APIs</button>
+      </div>
+    </div>
+  </div>
+  <div class="messages" id="messages" style="display:none;"></div>
+  <div class="input-wrap">
+    <div class="input-box">
+      <textarea
+        id="userInput"
+        class="input-field"
+        placeholder="Ask me anything... (Enter to send, Shift+Enter for new line)"
+        rows="1">
+      </textarea>
+      <button class="send-btn" id="sendBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="22" y1="2" x2="11" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        </svg>
+      </button>
+    </div>
+    <p class="input-hint">PulseAI auto-searches Google for real-time queries · All history saved to MySQL</p>
+  </div>
+</main>
+<script src="/static/js/app.js"></script>
+</body>
+</html>
