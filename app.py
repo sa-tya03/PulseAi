@@ -22,8 +22,8 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
 
 # ── PASTE YOUR API KEYS HERE ─────────────────────────────
-SERP_API_KEY   = "ccb127aee7b130ec21272b3ac85e2da679ee8d581d9b68b575f58274aae7a2c1"
-GROQ_API_KEY = "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"
+GROQ_API_KEY = "your-groq-api-key-here"
+SERP_API_KEY = "your-serp-api-key-here"
 groq_client = Groq(api_key=GROQ_API_KEY)
 # ─── MODELS ──────────────────────────────────────────────
 class User(db.Model):
@@ -201,6 +201,7 @@ def chat_api():
     past    = Message.query.filter_by(session_id=session_id)\
                            .order_by(Message.created_at).all()[:-1]
     history = [{"role": m.role, "parts": [m.content]} for m in past]
+
     system_instruction = (
     "You are PulseAI, a smart and friendly AI assistant. "
     "When Google search results are provided, use them to give accurate "
