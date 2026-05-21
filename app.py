@@ -10,20 +10,16 @@ import uuid
 import threading
 import webbrowser
 import time
-
+from dotenv import load_dotenv
+load_dotenv()
 app = Flask(__name__)
 app.secret_key = "pulseai-royal-secret-2024"
-
-# ── UPDATE YOUR_PASSWORD BELOW ──────────────────────────
-app.config["SQLALCHEMY_DATABASE_URI"] = (
-    "mysql+pymysql://root:Satya%402006@localhost/pulseai_db"
-)
+DB_PASSWORD = os.environ.get("DB_PASSWORD")
+app.config["SQLALCHEMY_DATABASE_URI"] = (f"mysql+pymysql://root:{DB_PASSWORD}@localhost/pulseai_db")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db = SQLAlchemy(app)
-
-# ── PASTE YOUR API KEYS HERE ─────────────────────────────
-GROQ_API_KEY = "your-groq-api-key-here"
-SERP_API_KEY = "your-serp-api-key-here"
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
+SERP_API_KEY = os.environ.get("SERP_API_KEY")
 groq_client = Groq(api_key=GROQ_API_KEY)
 # ─── MODELS ──────────────────────────────────────────────
 class User(db.Model):
